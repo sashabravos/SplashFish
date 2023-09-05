@@ -21,16 +21,32 @@ class SeaViewController: UIViewController {
         return view
     }()
     
+    private lazy var restartButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "replay")?.withTintColor(.white), for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 30.0, weight: .semibold)
+        button.addTarget(self, action: #selector(restartAnima), for: .touchUpInside)
+        button.frame = CGRect(x: 280,
+                              y: 710,
+                                     width: 100, height: 100)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         addFishes()
     }
 
+    
     private func setupView() {
         // Set backgroundImageView as backgroundColor
-        view.addSubview(backgroundImageView)
         backgroundImageView.frame = view.frame
+        
+        [backgroundImageView, restartButton].forEach {
+            view.addSubview($0)
+        }
     }
     
     // MARK: - Add fishes
@@ -63,9 +79,16 @@ class SeaViewController: UIViewController {
         let fish7 = Fish(view: view,
                          imageName: .yellowKoi,
                          pointY: 650)
-
+        
         [fish1, fish2, fish3, fish4, fish5, fish6, fish7].forEach {
+            $0.startSwimming()
             fishes.append($0)
+        }
+    }
+    
+    @objc private func restartAnima() {
+        fishes.forEach {
+            $0.startSwimming()
         }
     }
 }
