@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		034A33FA2AA780F7006B8CDA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A33F92AA780F7006B8CDA /* Constants.swift */; };
 		039B889E2AA71F46003A3D11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039B889D2AA71F46003A3D11 /* AppDelegate.swift */; };
 		039B88A02AA71F46003A3D11 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039B889F2AA71F46003A3D11 /* SceneDelegate.swift */; };
 		039B88A22AA71F46003A3D11 /* SeaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 039B88A12AA71F46003A3D11 /* SeaViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		034A33F92AA780F7006B8CDA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		039B889A2AA71F46003A3D11 /* SplashFish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SplashFish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		039B889D2AA71F46003A3D11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		039B889F2AA71F46003A3D11 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +41,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		034A33FD2AA8E97E006B8CDA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				039B88A12AA71F46003A3D11 /* SeaViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		034A33FE2AA8E9A6006B8CDA /* CustomClasses */ = {
+			isa = PBXGroup;
+			children = (
+				039B88B32AA72090003A3D11 /* Fish.swift */,
+			);
+			path = CustomClasses;
+			sourceTree = "<group>";
+		};
 		039B88912AA71F46003A3D11 = {
 			isa = PBXGroup;
 			children = (
@@ -59,9 +77,10 @@
 			isa = PBXGroup;
 			children = (
 				039B88B12AA72016003A3D11 /* AppResourse */,
-				039B88A12AA71F46003A3D11 /* SeaViewController.swift */,
-				039B88B32AA72090003A3D11 /* Fish.swift */,
+				034A33FD2AA8E97E006B8CDA /* Controller */,
+				034A33FE2AA8E9A6006B8CDA /* CustomClasses */,
 				039B88A62AA71F47003A3D11 /* Assets.xcassets */,
+				034A33F92AA780F7006B8CDA /* Constants.swift */,
 				039B88B22AA72026003A3D11 /* Storyboards */,
 				039B88AB2AA71F47003A3D11 /* Info.plist */,
 			);
@@ -157,6 +176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				034A33FA2AA780F7006B8CDA /* Constants.swift in Sources */,
 				039B88A22AA71F46003A3D11 /* SeaViewController.swift in Sources */,
 				039B889E2AA71F46003A3D11 /* AppDelegate.swift in Sources */,
 				039B88A02AA71F46003A3D11 /* SceneDelegate.swift in Sources */,
