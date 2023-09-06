@@ -10,11 +10,12 @@ import UIKit
 class SeaViewController: UIViewController {
     
     // MARK: - Properties
-
+    
+    var pointY = 30.0
     private lazy var fishes: [Fish] = []
-
+    
     // MARK: - UI Elements
-
+    
     private lazy var backgroundImageView: UIImageView = {
         let view = UIImageView()
         view.image = Constants.Images.backImage
@@ -29,16 +30,18 @@ class SeaViewController: UIViewController {
         button.addTarget(self, action: #selector(restartAnima), for: .touchUpInside)
         button.frame = CGRect(x: 280,
                               y: 710,
-                                     width: 100, height: 100)
+                              width: 100, height: 100)
         return button
     }()
+    
+    private lazy var fishQueue = DispatchQueue(label: "com.myapp.fishQueue")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        addFishes()
+        addFish()
     }
-
+    
     
     private func setupView() {
         // Set backgroundImageView as backgroundColor
@@ -50,45 +53,58 @@ class SeaViewController: UIViewController {
     }
     
     // MARK: - Add fishes
-
-    private func addFishes() {
-        let fish1 = Fish(view: view,
-                         imageName: .blackKoi,
-                         pointY: 30.0)
-        
-        let fish2 = Fish(view: view,
-                         imageName: .blackWhiteKoi,
-                         pointY: 140.0)
-        
-        let fish3 = Fish(view: view,
-                         imageName: .orangeKoi,
-                         pointY: 250.0)
-
-        let fish4 = Fish(view: view,
-                         imageName: .pointedKoi,
-                         pointY: 360.0)
-
-        let fish5 = Fish(view: view,
-                         imageName: .whiteOrangeKoi,
-                         pointY: 470.0)
-
-        let fish6 = Fish(view: view,
-                         imageName: .whiteRedKoi,
-                         pointY: 580.0)
-        
-        let fish7 = Fish(view: view,
-                         imageName: .yellowKoi,
-                         pointY: 650)
-        
-        [fish1, fish2, fish3, fish4, fish5, fish6, fish7].forEach {
-            $0.startSwimming()
-            fishes.append($0)
+    
+    private func addFish() {
+        fishQueue.async {
+            do {
+                try self.addFishes()
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
     
-    @objc private func restartAnima() {
-        fishes.forEach {
-            $0.startSwimming()
+    private func addFishes() throws {
+        let fishData: [Fish.FishTypes] = [
+            .blackKoi,
+            .blackWhiteKoi,
+            .orangeKoi,
+            .pointedKoi,
+            .whiteOrangeKoi,
+            .whiteRedKoi,
+            .yellowKoi,
+            .orangeKoi,
+            .blackWhiteKoi,
+            .yellowKoi,
+            .whiteRedKoi,
+            .blackKoi,
+            .pointedKoi
+        ]
+        
+        for imageName in fishData {
+            sleep(2)
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                let fish = Fish(view: self.view,
+                                imageName: imageName,
+                                pointY: pointY)
+                fish.startSwimming()
+                self.fishes.append(fish)
+                pointY += CGFloat.random(in: 50...80)
+            }
+        }
+    }
+    
+    @objc private func restartAnima() throws {
+        if fishes.isEmpty {
+            fishQueue.async {
+                do {
+                    try self.addFishes()
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
         }
     }
 }
