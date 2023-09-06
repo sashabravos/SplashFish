@@ -19,10 +19,6 @@ class Fish {
     
     // MARK: - Enums
     
-    enum FishActions {
-        case left, right, up, down
-    }
-    
     enum FishTypes {
         case blackKoi, blackWhiteKoi,
              orangeKoi, pointedKoi,
@@ -46,7 +42,8 @@ class Fish {
         self.view = view
         self.imageName = imageName
         self.pointY = pointY
-        self.pointX = CGFloat.random(in: -30...viewWidth - 167)
+        self.pointX = CGFloat.random(
+            in: Constants.Origin.leftOffset...viewWidth - Constants.Origin.rightOffset)
         self.isReversed = Bool.random()
 
         
@@ -54,19 +51,19 @@ class Fish {
         
         switch imageName {
         case .blackKoi:
-            image = UIImage(named: "blackKoi")
+            image = Constants.Images.blackKoi
         case .blackWhiteKoi:
-            image = UIImage(named: "blackWhiteKoi")
+            image = Constants.Images.blackWhiteKoi
         case .orangeKoi:
-            image = UIImage(named: "orangeKoi")
+            image = Constants.Images.orangeKoi
         case .pointedKoi:
-            image = UIImage(named: "pointedKoi")
+            image = Constants.Images.pointedKoi
         case .whiteOrangeKoi:
-            image = UIImage(named: "whiteOrangeKoi")
+            image = Constants.Images.whiteOrangeKoi
         case .whiteRedKoi:
-            image = UIImage(named: "whiteRedKoi")
+            image = Constants.Images.whiteRedKoi
         case .yellowKoi:
-            image = UIImage(named: "yellowKoi")
+            image = Constants.Images.yellowKoi
         }
         
         guard let fishImage = image else {
@@ -74,44 +71,45 @@ class Fish {
         }
         
         fishImageView = UIImageView(image: fishImage)
-        fishImageView.frame = CGRect(x: pointX, y: pointY, width: 200, height: 200)
+        fishImageView.frame = CGRect(x: pointX, y: pointY,
+                                     width: Constants.Sizes.fishImage,
+                                     height: Constants.Sizes.fishImage)
+        
         fishImageView.contentMode = .scaleAspectFit
         view.addSubview(fishImageView)
+        startSwimming()
     }
     
     // MARK: - Private Methods
     
-    func startSwimming() {
+    private func startSwimming() {
 
         let up = pointY - view.frame.height
         let down = pointY + view.frame.height
-//        let down2 = view.bounds.size.height - pointY
-        let positionAnimation = CABasicAnimation(keyPath: "position.y")
-        positionAnimation.duration = 5.0
+        let positionAnimation = CABasicAnimation(keyPath: Constants.CAKeyPath.positionY)
+        positionAnimation.duration = Constants.Durations.swim
         positionAnimation.fromValue = isReversed ? up : down
         positionAnimation.toValue = isReversed ? down : up
         positionAnimation.repeatCount = .infinity
 
-        fishImageView.layer.add(positionAnimation, forKey: "swimAnimation")
+        fishImageView.layer.add(positionAnimation, forKey: Constants.AnimationKeyName.swim)
 
-        fishImageView.transform = isReversed ?  CGAffineTransform(rotationAngle: CGFloat.pi) : .identity
+        fishImageView.transform = isReversed ?  CGAffineTransform(rotationAngle: CGFloat.pi).inverted() : .identity
     }
     
-    
-    
     func stopSwimming() {
-        fishImageView.layer.removeAnimation(forKey: "swimAnimation")
+        fishImageView.layer.removeAnimation(forKey: Constants.AnimationKeyName.swim)
     }
     
     // MARK: - Public Methods
     
     public func fishCaughtAnimation(fish: Fish) {
         isCaught = true
-        UIView.animate(withDuration: 0.3,
-                       delay: 0.0,
+        UIView.animate(withDuration: Constants.Durations.hide,
+                       delay: .zero,
                        options: [.curveEaseInOut, .allowUserInteraction],
                        animations: {
-            fish.fishImageView.alpha = 0
+            fish.fishImageView.alpha = .zero
         }) { _ in
             fish.fishImageView.removeFromSuperview()
         }

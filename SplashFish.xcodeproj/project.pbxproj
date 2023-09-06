@@ -41,6 +41,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		034A33FD2AA8E97E006B8CDA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				039B88A12AA71F46003A3D11 /* SeaViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		034A33FE2AA8E9A6006B8CDA /* CustomClasses */ = {
+			isa = PBXGroup;
+			children = (
+				039B88B32AA72090003A3D11 /* Fish.swift */,
+			);
+			path = CustomClasses;
+			sourceTree = "<group>";
+		};
 		039B88912AA71F46003A3D11 = {
 			isa = PBXGroup;
 			children = (
@@ -61,8 +77,8 @@
 			isa = PBXGroup;
 			children = (
 				039B88B12AA72016003A3D11 /* AppResourse */,
-				039B88A12AA71F46003A3D11 /* SeaViewController.swift */,
-				039B88B32AA72090003A3D11 /* Fish.swift */,
+				034A33FD2AA8E97E006B8CDA /* Controller */,
+				034A33FE2AA8E9A6006B8CDA /* CustomClasses */,
 				039B88A62AA71F47003A3D11 /* Assets.xcassets */,
 				034A33F92AA780F7006B8CDA /* Constants.swift */,
 				039B88B22AA72026003A3D11 /* Storyboards */,
